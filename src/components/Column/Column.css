@@ -1,0 +1,35 @@
+.column {
+  margin: 8px;
+  border: 1px solid rgb(202, 13, 13);
+  border-radius: 2px;
+  width: 500px;
+}
+.card {
+  padding: 8px;
+  border: 1px solid rgb(202, 13, 13);
+}
+p {
+  padding: 8px
+}
+.taskList {
+  padding: 8px;
+}
+
+.add-task {
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 3px;
+  background: rgb(9, 42, 58);
+  box-shadow: 0 -3px rgb(9, 42, 58) inset;
+  transition: 0.2s;
+  font-family: 'Montserrat';
+  border-radius: 7px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

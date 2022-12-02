@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: aqua;
+}
+
+.header-input {
+  height: 20px;
+  background: #DCE5E2;
+  height: 25px; 
+  width: 30%;
+  border: 1px solid #000000;
+  border-radius: 54px 54px 54px 54px;
+  padding-left: 10px;
+  font-family: 'Montserrat';
+  margin-right: 5%;
+}
+.header-input:focus {
+  height: 30px;
+}
+
+.addButton {
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 3px;
+  background: rgb(28, 137, 187);
+  box-shadow: 0 -3px rgb(28, 137, 187) inset;
+  transition: 0.2s;
+  font-family: 'Montserrat';
+  border-radius: 7px;
+}
+
+.addButton:hover { background: rgb(53, 112, 167); }
+.addButton:active {
+  background: rgb(33, 82, 147);
+  box-shadow: 0 3px rgb(33, 82, 147) inset;
+}

@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore, compose } from 'redux';
+import getDataTrduser from './store/reduser/data-reduser';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { applyMiddleware } from 'redux';
+import rootSaga from './store/sagas';
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(getDataTrduser, composeEnhancers(applyMiddleware(sagaMiddleware)))
+sagaMiddleware.run(rootSaga);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
