@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import CloseSVG from "../../svg/CloseSVG";
 import AddTAskModal from "../Addtaskmodal/AddTAskModal";
 
 import "./ModalTask.css";
 
-function ModalTask({ setIsOpenModal }) {
+function ModalTask({ setIsOpenModal, nameColumn }) {
   return (
     <div className="modal">
       <div className="modal-content">
@@ -18,10 +19,16 @@ function ModalTask({ setIsOpenModal }) {
             <CloseSVG />
           </button>
         </div>
-        <AddTAskModal />
+        <AddTAskModal nameColumn={nameColumn} setIsOpenModal={setIsOpenModal} />
       </div>
     </div>
   );
 }
 
+ModalTask.propTypes = {
+  setIsOpenModal: PropTypes.func.isRequired,
+  nameColumn: PropTypes.string.isRequired,
+};
+
 export default ModalTask;
+

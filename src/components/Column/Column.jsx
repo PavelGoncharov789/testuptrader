@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+import ModalTask from "../modal/ModalTask";
 
 import "./Column.css";
 
-function Column({ column, tasks, setIsOpenModal }) {
-
+function Column({ column, tasksId }) {
+  const[isOpenModal, setIsOpenModal] = useState(false);
+  const params = useParams();
+  const data = useSelector(state => state[params.project].tasks);
+console.log(column);
   return (
     <div className="column">
+       {isOpenModal? <ModalTask setIsOpenModal={setIsOpenModal} nameColumn = {column.id}/> : null}
       <div className="column-header">
         <h3>{column.title}</h3>
         <button className="add-task" onClick={() => setIsOpenModal(true)}>
@@ -21,8 +30,8 @@ function Column({ column, tasks, setIsOpenModal }) {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            {tasks.length
-              ? tasks.map(({ id, content }, index) => {
+            {tasksId.length
+              ? tasksId.map(( id , index) => {
                   return (
                     <Draggable key={id} draggableId={id} index={index}>
                       {(provided) => (
@@ -33,7 +42,8 @@ function Column({ column, tasks, setIsOpenModal }) {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <p>{content}</p>
+                          <p>{data[id].priority}</p>
+                          <p>{data[id].detailTask}</p>
                         </div>
                       )}
                     </Draggable>
@@ -47,5 +57,14 @@ function Column({ column, tasks, setIsOpenModal }) {
     </div>
   );
 }
+
+Column.propTypes = {
+  column: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    taskIds: PropTypes.array,
+  }).isRequired,
+  tasksId: PropTypes.array,
+};
 
 export default Column;

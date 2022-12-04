@@ -4,29 +4,30 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Column from "../../components/Column/Column";
-import ModalTask from "../../components/modal/ModalTask";
 
 import "./TaskPage.css";
 
 function TaskPage() {
   const params = useParams();
-  const data = useSelector(state => state[params.project]);
-  console.log("1",data);
+  const state = useSelector(state => state);
+  const data = state[params.project];
+
+  useEffect(() => {
+    return () => localStorage.setItem('project', JSON.stringify(state))
+  },[])
 
   const [boards, setBoards] = useState(data);
   const [table, setTable] = useState([]);
-  const[isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
     const arr = [];
     boards.columnOrder.map((columnId) => {
       const actualColumn = boards.columns[columnId];
-      const actualTasks = actualColumn.taskIds.map(
-        (taskId) => boards.tasks[taskId]
-      );
+      const actualTasks = actualColumn.taskIds;
       arr.push({ actualColumn, actualTasks });
     });
     setTable(arr);
+    localStorage.setItem('project', JSON.stringify({...state, [`${params.project}`]: boards}))
   }, [boards]);
 
   const handleDragEnd = (result) => {
@@ -89,14 +90,12 @@ function TaskPage() {
   };
 
   return <div className="board">
-    {isOpenModal? <ModalTask setIsOpenModal={setIsOpenModal}/> : null}
         <DragDropContext onDragEnd={handleDragEnd}>
         {table.map(({ actualColumn, actualTasks }) => (
           <Column
             key={actualColumn.id}
             column={actualColumn}
-            tasks={actualTasks}
-            setIsOpenModal={setIsOpenModal}
+            tasksId={actualTasks}
           />
         ))}
       </DragDropContext>
