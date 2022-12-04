@@ -15,10 +15,9 @@ export default function getDataTrduser(state=initialState, action = {}) {
         [`${action.payload}`] : initialData,
       };
     case actionTypes.ADD_TASK:
-      const newProject = action.payload;
       return {
         ...state,
-        [`${newProject.project}`]: newProject.data
+        [`${action.payload.project}`]: action.payload.data
       }
     default:
       return state;
