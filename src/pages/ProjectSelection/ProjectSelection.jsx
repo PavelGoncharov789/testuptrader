@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./ProjectSelection.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getProjectAction } from "../../store/action/actions";
+import CloseSVG from "../../svg/CloseSVG";
 
 function ProjectSelection() {
   const data = useSelector((state) => state);
@@ -20,18 +21,33 @@ function ProjectSelection() {
     }
   }, [data]);
 
+  const deleteProject = () => {
+    alert("Функционал скоро реализую")
+  }
+
   return (
     <div className="project">
       <Header />
       {headings.map((element, index) => (
-        <Link key={element+index}
-          to={{
-            pathname: `/board/${element}`,
-            state: element,
-          }}
-        >
-          <div className="project-card">{element}</div>
-        </Link>
+        <div key={element + index} className="project-card">
+          <div>
+          <h4 className="card-title">Название проекта</h4>
+          <p>
+            <Link
+              className="project-link"
+              to={{
+                pathname: `/board/${element}`,
+                state: element,
+              }}
+            >
+              {element}
+            </Link>
+          </p>
+          </div>
+          <div className="close-icon-container" onClick={() => {deleteProject()}}>
+          <CloseSVG />
+          </div>
+        </div>
       ))}
     </div>
   );

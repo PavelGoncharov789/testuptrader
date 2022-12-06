@@ -11,10 +11,32 @@
 }
 
 .project-card {
+  display: flex;
+  justify-content: space-around;
   width: 250px;
-  height: 50px;
+  height: 100px;
   margin: 10px;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.project-link {
+  text-decoration: none;
+}
+
+.card-title {
+  font-family: 'Nerko One';
+}
+
+.close-icon-container {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .project {
+    justify-content: space-between;
+    margin: 0 25px 0 25px;
+  }
 }
