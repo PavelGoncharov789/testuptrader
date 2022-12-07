@@ -3,3 +3,10 @@
   width: 100%;
   justify-content: space-evenly;
 }
+
+@media (max-width: 768px) {
+  .project {
+    justify-content: space-between;
+    margin: 0 25px 0 25px;
+  }
+}

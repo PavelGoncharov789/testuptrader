@@ -33,3 +33,9 @@ p {
   justify-content: space-around;
   align-items: center;
 }
+
+.add-task-icon {
+  border:none;
+  background: none;
+
+}

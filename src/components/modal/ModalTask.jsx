@@ -5,21 +5,24 @@ import CloseSVG from "../../svg/CloseSVG";
 import AddTAskModal from "../Addtaskmodal/AddTAskModal";
 
 import "./ModalTask.css";
+import ModalTaskInfo from "../ModalTaskInfo/ModalTaskInfo";
 
-function ModalTask({ setIsOpenModal, nameColumn }) {
+function ModalTask({ setIsOpenModal, nameColumn, cardId, setCardId }) {
+  console.log(cardId);
   return (
     <div className="modal">
       <div className="modal-content">
         <div className="modal-header">
-          <h3 className="modal-title">asdfadfhsdfhsfghsfr</h3>
           <button
-            onClick={() => setIsOpenModal(false)}
+            onClick={() => {setIsOpenModal(false), setCardId()}}
             className="close-button"
           >
             <CloseSVG />
           </button>
         </div>
-        <AddTAskModal nameColumn={nameColumn} setIsOpenModal={setIsOpenModal} />
+        {cardId ?
+        <ModalTaskInfo cardId={cardId} />
+        :<AddTAskModal nameColumn={nameColumn} setIsOpenModal={setIsOpenModal} />}
       </div>
     </div>
   );
@@ -28,6 +31,8 @@ function ModalTask({ setIsOpenModal, nameColumn }) {
 ModalTask.propTypes = {
   setIsOpenModal: PropTypes.func.isRequired,
   nameColumn: PropTypes.string.isRequired,
+  cardId: PropTypes.string,
+  setCardId: PropTypes.func.isRequired,
 };
 
 export default ModalTask;

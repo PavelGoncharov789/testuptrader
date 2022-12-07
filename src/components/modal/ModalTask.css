@@ -26,9 +26,5 @@
   width: 100%;
   height: 50px;
   display: flex;
-  justify-content: space-between;
-}
-
-.modal-title {
-  margin-left: 15px;
+  justify-content: flex-end;
 }

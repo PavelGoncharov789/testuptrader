@@ -12,10 +12,11 @@ function Column({ column, tasksId }) {
   const[isOpenModal, setIsOpenModal] = useState(false);
   const params = useParams();
   const data = useSelector(state => state[params.project].tasks);
-console.log(column);
+  const [cardID, setCardId] = useState();
+
   return (
     <div className="column">
-       {isOpenModal? <ModalTask setIsOpenModal={setIsOpenModal} nameColumn = {column.id}/> : null}
+       {isOpenModal? <ModalTask setIsOpenModal={setIsOpenModal} nameColumn = {column.id} cardId = {cardID} setCardId = {setCardId}/> : null}
       <div className="column-header">
         <h3>{column.title}</h3>
         <button className="add-task" onClick={() => setIsOpenModal(true)}>
@@ -36,7 +37,7 @@ console.log(column);
                     <Draggable key={id} draggableId={id} index={index}>
                       {(provided) => (
                         <div
-                          onClick={() => setIsOpenModal(true)}
+                          onClick={() => {setIsOpenModal(true), setCardId(id)}}
                           className="card"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
