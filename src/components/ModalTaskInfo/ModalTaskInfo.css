@@ -22,3 +22,22 @@
   width: 100%;
   height: 50px;
 }
+
+.comment-text-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-text-container-answer {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.comment-text-container-button {
+  position: fixed;
+}
+
+.comment-text-container-button-close {
+  margin-right: 14%;
+}

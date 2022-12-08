@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import "./ModalTaskInfo.css";
+import PortalModal from "../AddPortal/PortalModal";
 
 function ModalTaskInfo ({cardId}) {
   const projectID = useParams();
@@ -11,10 +12,13 @@ function ModalTaskInfo ({cardId}) {
   const taskData = tasks[cardId];
   const [isInput, setISInput] = useState(false);
   const [text, setText] = useState();
-  // const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState([]);
+  const [isOpenPortal, setIsOpenPortal] = useState(false);
   
   const addComment = () => {
+    setComment([...comment, text]);
     console.log(text);
+    setISInput(false)
   };
 
   return (
@@ -31,7 +35,18 @@ function ModalTaskInfo ({cardId}) {
             <button className="comment-button" onClick={() => addComment()} >Комментировать</button>
           </div>
         : <button className="comment-button" onClick={() => setISInput(true)}>Оставаить комментарий</button>}
-        <div></div>
+        <div>
+          {comment.map(element => {
+            return <div className="comment-text-container">
+              <p>{element}</p>
+              <div className="comment-text-container-answer" id="portal">
+               <PortalModal isOpen={isOpenPortal} setIsOpen={setIsOpenPortal} />
+                <span onClick={() => setIsOpenPortal(true)} className="comment-text-container-button">Ответить</span>
+                {isOpenPortal? <span className="comment-text-container-button-close" onClick={() => setIsOpenPortal(false)}>Отмена</span>: null}
+              </div>
+            </div>
+          })}
+        </div>
       </div>
     </div>
   )
