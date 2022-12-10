@@ -12,14 +12,22 @@ function ModalTaskInfo ({cardId}) {
   const taskData = tasks[cardId];
   const [isInput, setISInput] = useState(false);
   const [text, setText] = useState();
-  const [comment, setComment] = useState([]);
+  const [comment, setComment] = useState({});
   const [isOpenPortal, setIsOpenPortal] = useState(false);
   
   const addComment = () => {
-    setComment([...comment, text]);
-    console.log(text);
+    setComment({...comment, [Date.now()]: {value: text}});
     setISInput(false)
   };
+
+  const replytToComment = (id) => {
+    
+    setComment({...comment, [id]: {...comment[id], text}});
+    console.log("comment", comment.id);
+    // setIsOpenPortal(false);
+  };
+
+  console.log(comment);
 
   return (
     <div className="modaltaskinfo-container">
@@ -34,15 +42,15 @@ function ModalTaskInfo ({cardId}) {
             <button className="comment-button" onClick={() => {setText(),setISInput(false)}}>Отмена</button>
             <button className="comment-button" onClick={() => addComment()} >Комментировать</button>
           </div>
-        : <button className="comment-button" onClick={() => setISInput(true)}>Оставаить комментарий</button>}
+        : <button className="comment-button" onClick={() => setISInput(true)}>Оставить комментарий</button>}
         <div>
-          {comment.map(element => {
-            return <div className="comment-text-container">
-              <p>{element}</p>
+          {Object.entries(comment).map(element => {
+            return <div key={element[0]} className="comment-text-container">
+              <p>{element[1].value}</p>
               <div className="comment-text-container-answer" id="portal">
-               <PortalModal isOpen={isOpenPortal} setIsOpen={setIsOpenPortal} />
-                <span onClick={() => setIsOpenPortal(true)} className="comment-text-container-button">Ответить</span>
-                {isOpenPortal? <span className="comment-text-container-button-close" onClick={() => setIsOpenPortal(false)}>Отмена</span>: null}
+               {isOpenPortal == element[0] ? <PortalModal />: null}
+                <span onClick={() => {isOpenPortal ? replytToComment(element[0]): setIsOpenPortal(element[0]) }} className="comment-text-container-button">Ответить</span>
+                {isOpenPortal == element[0]? <span className="comment-text-container-button-close" onClick={() => setIsOpenPortal(false)}>Отмена</span>: null}
               </div>
             </div>
           })}
