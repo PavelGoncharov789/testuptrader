@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import "./PortalModal.css"
 
-function PortalModal () {
-  return  <textarea className="portal-modal"/>
+function PortalModal ({setText}) {
+  return  <textarea className="portal-modal" onChange={(e) => setText(e.target.value)}/>
+}
+
+PortalModal.propTypes = {
+  setText: PropTypes.func.isRequired,
 };
 
 export default PortalModal;
